@@ -11,6 +11,18 @@ import (
 	"github.com/imchukwu/acadawriters/pkg/utils"
 )
 
+
+func CreatePrice(w http.ResponseWriter, r *http.Request) {
+	
+	CreatePrice := &models.Price{}
+	utils.ParseBody(r, CreatePrice)
+	price := CreatePrice.CreatePrice()
+	res, _ := json.Marshal(price)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
 func GetPrices(w http.ResponseWriter, r *http.Request) {
 	prices := models.GetPrices()
 	res, _ := json.Marshal(prices)
@@ -22,22 +34,41 @@ func GetPrices(w http.ResponseWriter, r *http.Request) {
 func GetPrice(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	priceId := vars["priceId"]
-	Id, err := strconv.ParseInt(contactId, 0, 0)
+	Id, err := strconv.ParseInt(priceId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	price, _ := models.GetPrices(Id)
+	price, _ := models.GetPrice(Id)
 	res, _ := json.Marshal(price)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
 
-func CreatePrice(w http.ResponseWriter, r *http.Request) {
-	CreatePrice := &models.Price{}
-	utils.ParseBody(r, CreatePrice)
-	price := CreatePrice.CreatePrice()
-	res, _ := json.Marshal(price)
+func GetPriceByTaskAndDuration(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	taskId := vars["taskId"]
+	duration := vars["duration"]
+	
+	Id, err := strconv.ParseInt(taskId, 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid taskId", http.StatusBadRequest)
+		return
+	}
+	
+	price, _ := models.GetPriceByTaskAndDuration(Id, duration)
+
+	if price == nil {
+		http.Error(w, "Price not found", http.StatusNotFound)
+		return
+	}
+
+	res, err := json.Marshal(price)
+	if err != nil {
+		http.Error(w, "Error while encoding JSON", http.StatusInternalServerError)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -68,11 +99,11 @@ func UpdatePrice(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error while parsing")
 	}
 	price, db := models.GetPrice(Id)
-	if price.Timeline != "" {
-		price.Timeline = updateprice.Timeline
+	if price.TaskDuration != "" {
+		price.TaskDuration = updatePrice.TaskDuration
 	}
-	if price.Price != "" {
-		price.Price = updateprice.Price
+	if price.TaskPrice != "" {
+		price.TaskPrice = updatePrice.TaskPrice
 	}
 	
 

@@ -5,11 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type TaskPricing struct {
+type Price struct {
 	gorm.Model
 	TaskId    string `json:"taskId"`
-	Timeline   string `json:"timeline"`
-	Price   string `json:"price"`
+	TaskDuration   string `json:"task_duration"`
+	TaskPrice   string `json:"task_price"`
 }
 
 func init() {
@@ -34,6 +34,13 @@ func GetPrice(Id int64) (*Price, *gorm.DB) {
 	db := db.Where("ID=?", Id).Find(&price)
 	return &price, db
 }
+
+func GetPriceByTaskAndDuration(taskId int64, duration string) (*Price, *gorm.DB) {
+	var price Price
+	db := db.Where("task_id = ? AND task_duration = ?", taskId, duration).First(&price)
+	return &price, db
+}
+
 
 func DeletePrice(Id int64) *Price {
 	var price *Price

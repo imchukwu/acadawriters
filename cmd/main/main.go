@@ -13,8 +13,8 @@ import (
 func main() {
 	r := mux.NewRouter()
 
-	routes.RegisterUserRoutes(r)
-	routes.RegisterTaskRoutes(r)
+	// routes.RegisterUserRoutes(r)
+	// routes.RegisterTaskRoutes(r)
 	routes.RegisterPriceRoutes(r)
 	http.Handle("/", r)
 
