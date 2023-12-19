@@ -13,7 +13,7 @@ type User struct {
 	Lastname   string    `json:"lastname"`
 	Email      string    `json:"email"`
 	Password   string    `json:"password"`
-	RegDate    string    `json:"reg_date"`
+	Role    string    `json:"role"`
 }
 
 func init() {

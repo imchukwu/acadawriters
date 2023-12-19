@@ -73,6 +73,9 @@ func UpdatePayment(w http.ResponseWriter, r *http.Request) {
 	if payment.Amount != "" {
 		payment.Amount = updatePayment.Amount
 	}
+	if payment.Type != "" {
+		payment.Type = updatePayment.Type
+	}
 	if payment.Status != "" {
 		payment.Status= updatePayment.Status
 	}

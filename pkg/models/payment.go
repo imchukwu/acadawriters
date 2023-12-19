@@ -8,6 +8,7 @@ import (
 type Payment struct {
 	gorm.Model
 	Amount   string `json:"amount"`
+	Type   string `json:"type"`
 	Status   string `json:"status"`
 }
 
