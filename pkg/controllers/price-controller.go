@@ -99,13 +99,9 @@ func UpdatePrice(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error while parsing")
 	}
 	price, db := models.GetPrice(Id)
-	if price.TaskDuration != "" {
-		price.TaskDuration = updatePrice.TaskDuration
+	if price.Amount != 0.0 {
+		price.Amount = updatePrice.Amount
 	}
-	if price.TaskPrice != "" {
-		price.TaskPrice = updatePrice.TaskPrice
-	}
-	
 
 	db.Save(&price)
 
