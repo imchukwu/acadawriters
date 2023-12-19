@@ -15,7 +15,7 @@ type Task struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	db.AutoMigrate(&Price{})
+	db.AutoMigrate(&Task{})
 }
 
 func (task *Task) CreateTask() *Task {
