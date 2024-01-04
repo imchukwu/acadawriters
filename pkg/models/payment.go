@@ -10,6 +10,10 @@ type Payment struct {
 	Amount   string `json:"amount"`
 	Type   string `json:"type"`
 	Status   string `json:"status"`
+	// ReferenceID string `json:"referenceID"`
+    UserId      uint   `json:"userID" gorm:"index"`
+	User   *User `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	
 }
 
 func init() {

@@ -7,9 +7,13 @@ import (
 
 type Price struct {
 	gorm.Model
-	TaskId    string `json:"taskId"`
-	TaskDuration   string `json:"task_duration"`
-	TaskPrice   string `json:"task_price"`
+	TaskID    string `json:"taskID"`
+	DurationID   string `json:"durationID"`
+	Amount   float64 `json:"amount"`
+
+	Task   *Task `json:"task" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Duration   *Duration `json:"duration" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+
 }
 
 func init() {
