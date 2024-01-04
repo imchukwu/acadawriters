@@ -7,8 +7,8 @@ import (
 
 type Price struct {
 	gorm.Model
-	TaskId    string `json:"taskId"`
-	DurationId   string `json:"durationId"`
+	TaskID    string `json:"taskID"`
+	DurationID   string `json:"durationID"`
 	Amount   float64 `json:"amount"`
 
 	Task   *Task `json:"task" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
