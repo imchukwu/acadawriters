@@ -11,6 +11,12 @@ import (
 	"github.com/imchukwu/acadawriters/pkg/utils"
 )
 
+// swagger:route GET /contact/ getContacts
+// Fetch a list of contact messages
+//
+// responses:
+//  401: CommonError
+//  200: GetContacts
 func GetContacts(w http.ResponseWriter, r *http.Request) {
 	
 	contacts := models.GetContacts()
@@ -20,6 +26,12 @@ func GetContacts(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+// swagger:route GET /contact/{contactId} getContact
+// Fetch a conatct message
+//
+// responses:
+//  401: CommonError
+//  200: GetContact
 func GetContact(w http.ResponseWriter, r *http.Request) {
 	
 	vars := mux.Vars(r)
@@ -35,6 +47,12 @@ func GetContact(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+// swagger:route POST /contact/ addContact
+// Create a contact message
+//
+// responses:
+//  401: CommonError
+//  200: CreateContact
 func CreateContact(w http.ResponseWriter, r *http.Request) {
 	
 	CreateContact := &models.Contact{}
@@ -46,6 +64,12 @@ func CreateContact(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+// swagger:route DELETE /contact/{contactId} deleteContact
+// Delete a contact message
+//
+// responses:
+//  401: CommonError
+//  200: DeleteContact
 func DeleteContact(w http.ResponseWriter, r *http.Request) {
 	
 	vars := mux.Vars(r)
@@ -60,6 +84,15 @@ func DeleteContact(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
+
+// swagger:route PUT /contact/{contactId} editContact
+// Update a contat message
+//
+// consumes:
+//         - application/x-www-form-urlencoded
+// responses:
+//  401: CommonError
+//  200: UpdateContact
 
 func UpdateContact(w http.ResponseWriter, r *http.Request) {
 	
