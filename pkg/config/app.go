@@ -1,74 +1,47 @@
 package config
 
+// package main
+
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/xo/dburl"
 	"gorm.io/driver/mysql"
+	"github.com/xo/dburl"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
-var (
-	db *gorm.DB
-)
+var db *gorm.DB
 
 func Connect() {
-    mysqlURL, ok := os.LookupEnv("MYSQL_URL")
-    if ok == false {
-        fmt.Println("MYSQL_URL not found")
-        return
-    }
+	mysqlURL, ok := os.LookupEnv("MYSQL_URL")
+	if !ok {
+		log.Fatal("MYSQL_URL not found")
+	}
 
-    u, err := dburl.Parse(mysqlURL + "?charset=utf8&parseTime=True&loc=Local")
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
+	u, err := dburl.Parse(mysqlURL + "?charset=utf8&parseTime=True&loc=Local")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    d, err := gorm.Open(mysql.Open(u.DSN), &gorm.Config{})
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
+	d, err := gorm.Open(mysql.Open(u.DSN), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent), // Adjust logging level as needed
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    fmt.Println("connected to database successfully")
+	fmt.Println("Connected to the database successfully")
 
 	db = d
 }
 
 func GetDB() *gorm.DB {
+	if db == nil {
+		log.Fatal("Database connection is nil.")
+	}
 	return db
 }
 
-
-// package config
-
-// import (
-// 	"os"
-
-// 	"gorm.io/driver/mysql"
-// 	"gorm.io/gorm"
-// )
-
-// var (
-// 	db *gorm.DB
-// )
-
-// func Connect() {
-
-// 	dsn := os.Getenv("MYSQL_URL");
-// 	// dsn := "root:password@tcp(127.0.0.1:3306)/acadawriters?charset=utf8mb4&parseTime=True&loc=Local"
-// 	// dsn := "mysql://root:-dCB1Ad6HdHddCGH3BdEcECgggbDh4gb@roundhouse.proxy.rlwy.net:20981/acadawriters"
-
-// 	// dsn := "ba15d8eef097fd:bc99a3bc@tcp(us-cdbr-east-06.cleardb.net:3306)/heroku_60b5ede111b594a?charset=utf8mb4&parseTime=True&loc=Local"
-// 	d, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	db = d
-// }
-
-// func GetDB() *gorm.DB {
-// 	return db
-// }
