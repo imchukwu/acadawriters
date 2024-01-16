@@ -5,13 +5,32 @@ import (
 	"gorm.io/gorm"
 )
 
+// swagger:model Contact
 type Contact struct {
 	gorm.Model
+	// Name of the user
+   	// in: string
 	Name    string `json:"name"`
+	// Email of the user
+   	// in: string
 	Email   string `json:"email"`
+	// Phone number of the user
+   	// in: string
 	Phone   string `json:"phone"`
+	// Contact Message by user
+   	// in: string
 	Message string `json:"message"`
 }
+
+// swagger:model CommonError
+type CommonError struct {
+	// Status of the error
+	// in: int64
+	Status int64 `json:"status"`
+	// Message of the error
+	// in: string
+	Message string `json:"message"`
+ }
 
 func init() {
 	config.Connect()
