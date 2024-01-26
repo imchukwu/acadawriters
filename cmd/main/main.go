@@ -1,15 +1,17 @@
-//   Acadawriters Api: 
-//    version: 0.1 
-//    title: Acadawriters Api 
-//   Schemes: http, https 
-//   Host: 
-//   BasePath:  
-//      Consumes: 
-//      - application/json 
-//   Produces: 
-//   - application/json 
-//     in: header 
-//   swagger:meta
+// Package classification Acadawriters API.
+//
+//     Schemes: http, https
+//     Host: localhost
+//     BasePath: /
+//     Version: 0.0.1
+//    
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+// swagger:meta
 
 package main
 

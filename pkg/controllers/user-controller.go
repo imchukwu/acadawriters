@@ -12,7 +12,21 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-
+	// swagger:operation GET /users GetUsers
+    //
+    // Returns all users 
+	//
+	// Insert Documentation
+    // ---
+    // produces:
+    // - application/json
+    // responses:
+    //   '200':
+    //     description: user response
+    //     schema:
+    //       type: array
+    //       items:
+    //         "$ref": "#/definitions/User"
 	users := models.GetUsers()
 	res, _ := json.Marshal(users)
 	w.Header().Set("Content-Type", "application/json")
@@ -36,7 +50,18 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	
+	// swagger:operation POST /users createUsers
+    // ---
+    // produces:
+    // - application/json
+    // parameters:
+    //   - name: Body
+    //     in: query
+    //     schema:
+    //       "$ref": "#/definitions/User"
+    // responses:
+    //   '200':
+    //     description: user response
 	CreateUser := &models.User{}
 	utils.ParseBody(r, CreateUser)
 	u := CreateUser.CreateUser()

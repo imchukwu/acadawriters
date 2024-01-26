@@ -7,12 +7,26 @@ import (
 
 var db *gorm.DB
 
+// User represents the user for this application
+// swagger:model
 type User struct {
+    // required: true
 	gorm.Model
+	// the firstname for this user
+    // required: true
+    // min length: 3
 	Firstname  string    `json:"firstname"`
+	// the lastname for this user
+    // required: true
+    // min length: 3
 	Lastname   string    `json:"lastname"`
+	// the email for this user
+    // required: true
+    // min length: 6
 	Email      string    `json:"email"`
+	// the password for this user
 	Password   string    `json:"password"`
+	// the role for this user
 	Role    string    `json:"role"`
 }
 

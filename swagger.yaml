@@ -1,2 +1,33 @@
-paths: {}
+definitions:
+    User:
+        description: User represents the user for this application
+        x-go-package: github.com/imchukwu/acadawriters/pkg/models
+info: {}
+paths:
+    /users:
+        get:
+            description: Insert Documentation
+            operationId: GetUsers
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: user response
+                    schema:
+                        items:
+                            $ref: '#/definitions/User'
+                        type: array
+            summary: 'Returns all users '
+        post:
+            operationId: createUsers
+            parameters:
+                - in: query
+                  name: Body
+                  schema:
+                    $ref: '#/definitions/User'
+            produces:
+                - application/json
+            responses:
+                "200":
+                    description: user response
 swagger: "2.0"
